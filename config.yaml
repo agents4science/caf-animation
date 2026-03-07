@@ -1,0 +1,82 @@
+# CAF Animation Configuration
+# This file defines all video segments, their sources, and voiceover scripts.
+
+title: "Common Agentic Framework (CAF) Animation"
+output_filename: "caf_video_final"
+
+# Text-to-speech settings
+tts:
+  voice: "en-US-GuyNeural"
+  rate: "+0%"
+
+# Quality presets: (height, width, fps, folder_name)
+quality_presets:
+  low:
+    height: 480
+    width: 854
+    fps: 15
+    folder: "480p15"
+  medium:
+    height: 720
+    width: 1280
+    fps: 30
+    folder: "720p30"
+  high:
+    height: 1080
+    width: 1920
+    fps: 60
+    folder: "1080p60"
+  4k:
+    height: 2160
+    width: 3840
+    fps: 60
+    folder: "2160p60"
+
+# Video segments in order
+# Types: "slide" (static image) or "animation" (manim script)
+segments:
+  - name: "intro"
+    type: slide
+    source: "slides/Title_Slide.png"
+    duration: 9  # seconds (for slides only)
+    script: |
+      We are here to tell you about the work of the Common Agentic Framework, or CAF, team, within the Genesis Mission ModCon Base project.
+
+  - name: "opal_agents"
+    type: animation
+    source: "animations/opal_agents.py"
+    scene_class: "OpalAgentsAnimationV2"
+    script: |
+      CAF is developing the agentic orchestration capabilities needed to enable scientific AI workloads.
+      Intelligent AI agents are already transforming research. For example, the Genesis OPAL/FAMOUS protein design team uses the Academy agentic framework to create agent teams that collaboratively review documents, generate hypotheses, design experiments, run computations, and analyze results across distributed American Science Cloud systems.
+
+  - name: "scaling"
+    type: animation
+    source: "animations/scaling_sliders.py"
+    scene_class: "AgenticScalingSliders"
+    script: |
+      CAF works to bridge the gap between industry agent frameworks and the unique requirements of DOE science. In particular, CAF addresses scaling requirements along three dimensions: entity count, interaction intensity, and operational persistence.
+
+  - name: "tree_reduction"
+    type: animation
+    source: "animations/tree_reduction.py"
+    scene_class: "LLMTreeReductionV3"
+    script: |
+      As an early demonstration of both entity count and interaction scaling, we have worked with OPAL/FAMOUS to scale agentic inference on the Argonne Leadership Computing Facility's Aurora exascale supercomputer.
+      This biological design application needs to engage large language models to analyze the suitability of thousands of molecules as inhibitors of protein interactions.
+      Each node designs a candidate binder. Results flow upward through combine stages as models compare solutions until a winner emerges.
+
+  - name: "hex_broadcast"
+    type: animation
+    source: "animations/hex_broadcast.py"
+    scene_class: "LLMHexBroadcastFixed4"
+    script: |
+      They use CAF's Aegis library first to distribute design queries to four thousand language model instances and then to combine results to find an optimal answer. The code achieves over one million tokens per second through efficient broadcast and reduction patterns.
+
+  - name: "closing"
+    type: slide
+    source: "slides/architecture.png"
+    duration: 27
+    script: |
+      The CAF architecture must also support scalable tool calls, because language model reasoning may demand new data, computation at remote locations, or even physical experiments.
+      By empowering DOE science agents to operate effectively across the DOE laboratory system, CAF is contributing to discovery across many domains of science and engineering.

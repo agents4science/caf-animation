@@ -1,0 +1,27 @@
+# Generated media
+media/
+audio_segments/
+temp_segments/
+
+# Output videos
+caf_video_final_*.mp4
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.eggs/
+*.egg-info/
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log
