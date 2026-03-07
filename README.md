@@ -1,123 +1,93 @@
 # CAF Animation
 
-Animated video explaining the Common Agentic Framework (CAF), a DOE initiative for scalable AI agent orchestration in scientific computing.
+Generate a narrated video explaining the **Common Agentic Framework (CAF)**, a DOE initiative for scalable AI agent orchestration in scientific computing.
 
-## Overview
-
-This project generates a narrated video demonstrating CAF capabilities through Manim animations:
-
-1. **OPAL Agents** - Agent communication over distributed systems
+The video includes four animated segments:
+1. **OPAL Agents** - Multi-agent collaboration for protein design
 2. **Scaling Dimensions** - Entity count, interaction intensity, persistence
-3. **Tree Reduction** - Distributed LLM query fan-out and reduction
-4. **Hex Broadcast** - Scaling inference to 4096 nodes on Aurora
+3. **Tree Reduction** - Distributed LLM inference with result aggregation
+4. **Hex Broadcast** - Scaling to 4096 nodes on Aurora supercomputer
+
+## Quick Start
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Build video (low quality for quick preview)
+python build_video.py low
+
+# Build production quality
+python build_video.py high
+```
+
+Output: `caf_video_final_<quality>.mp4`
 
 ## Requirements
 
 - Python 3.9+
-- [Manim](https://docs.manim.community/) (Community Edition)
-- FFmpeg
-- edge-tts (for text-to-speech)
+- FFmpeg (must be installed separately)
+- Dependencies: `pip install -r requirements.txt`
 
-```bash
-pip install manim edge-tts pyyaml
-```
+## Customization
 
-## Quick Start
+Edit `config.yaml` to change:
 
-Build the complete video at low quality:
-
-```bash
-python build_video.py low
-```
-
-Build at higher quality:
-
-```bash
-python build_video.py medium   # 720p @ 30fps
-python build_video.py high     # 1080p @ 60fps
-python build_video.py 4k       # 2160p @ 60fps
-```
-
-## Configuration
-
-All video segments, voiceover scripts, and settings are defined in `config.yaml`:
-
+**Voiceover scripts** - Modify the `script` field for any segment:
 ```yaml
 segments:
   - name: "intro"
-    type: slide
-    source: "slides/Title_Slide.png"
-    duration: 9
     script: |
-      We are here to tell you about the Common Agentic Framework...
-
-  - name: "opal_agents"
-    type: animation
-    source: "animations/opal_agents.py"
-    scene_class: "OpalAgentsAnimationV2"
-    script: |
-      CAF is developing the agentic orchestration capabilities...
+      Your custom narration text here...
 ```
 
-### Customizing Content
+**TTS voice** - Change the narrator voice:
+```yaml
+tts:
+  voice: "en-US-GuyNeural"  # See edge-tts for available voices
+  rate: "+0%"               # Speed adjustment
+```
 
-- **Scripts**: Edit the `script` field for any segment to change narration
-- **TTS Voice**: Change `tts.voice` in config (uses [edge-tts voices](https://github.com/rany2/edge-tts))
-- **Timing**: Adjust `duration` for slides or modify animation code for videos
+**Slide timing** - Adjust duration for static slides:
+```yaml
+  - name: "intro"
+    type: slide
+    duration: 9  # seconds
+```
 
 ## Project Structure
 
 ```
-.
-├── build_video.py          # Main build script
-├── config.yaml             # Video configuration
-├── animations/             # Manim animation scripts
-│   ├── opal_agents.py
-│   ├── scaling_sliders.py
-│   ├── tree_reduction.py
-│   └── hex_broadcast.py
-├── slides/                 # Static slide images
-│   ├── Title_Slide.png
-│   └── architecture.png
-├── assets/                 # Animation assets
-│   └── OPAL-SPLASH.png
-├── audio_segments/         # Generated audio (auto-created)
-└── media/                  # Rendered videos (auto-created)
+├── build_video.py      # Main build script
+├── config.yaml         # Video configuration (scripts, settings)
+├── animations/         # Manim animation source files
+├── slides/             # Static slide images (PNG)
+└── assets/             # Animation assets
 ```
 
 ## Build Options
 
+| Quality | Resolution | FPS | Use Case |
+|---------|------------|-----|----------|
+| `low`   | 854x480    | 15  | Quick preview |
+| `medium`| 1280x720   | 30  | Web sharing |
+| `high`  | 1920x1080  | 60  | Presentations |
+| `4k`    | 3840x2160  | 60  | High-quality export |
+
 ```bash
-python build_video.py [quality] [options]
+python build_video.py <quality> [options]
 
 Options:
-  --skip-render    Skip rendering animations (use existing)
-  --skip-audio     Skip generating audio (use existing)
+  --skip-render    Use existing rendered animations
+  --skip-audio     Use existing generated audio
   --config FILE    Use alternative config file
 ```
 
-## Quality Presets
-
-| Quality | Resolution | FPS | Use Case |
-|---------|-----------|-----|----------|
-| low     | 854x480   | 15  | Quick preview |
-| medium  | 1280x720  | 30  | Web sharing |
-| high    | 1920x1080 | 60  | Presentations |
-| 4k      | 3840x2160 | 60  | High-quality export |
-
-## Individual Animations
-
-Render animations separately:
+## Rendering Individual Animations
 
 ```bash
-python animations/opal_agents.py high
-python animations/scaling_sliders.py high
-python animations/tree_reduction.py high
-python animations/hex_broadcast.py high
+python animations/opal_agents.py high --preview
+python animations/scaling_sliders.py high --preview
+python animations/tree_reduction.py high --preview
+python animations/hex_broadcast.py high --preview
 ```
-
-Add `--preview` to open the result after rendering.
-
-## License
-
-MIT
