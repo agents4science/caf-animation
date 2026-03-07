@@ -62,8 +62,13 @@ tts:
 ├── config.yaml         # Video configuration (scripts, settings)
 ├── animations/         # Manim animation source files
 ├── slides/             # Static slide images (PNG)
-└── assets/             # Animation assets
+├── assets/             # Animation assets
+└── PROMPTS.md          # Prompts used to generate the code
 ```
+
+## Development
+
+See [PROMPTS.md](PROMPTS.md) for the prompts used to generate and refine each animation. Each animation file also includes docstrings describing the generative intent.
 
 ## Build Options
 
