@@ -7,12 +7,21 @@ import argparse
 
 class LLMHexBroadcastFixed4(MovingCameraScene):
     """
-    Hex-lattice broadcast + reduction visualization with:
-      - NO camera zoom/motion
-      - Broadcast ring-by-ring using ONLY hex-neighbor edges
-      - Each sender forwards to TWO neighbors whenever available
-      - Camera frame fits all nodes (no cropping)
-      - Node anatomy shown as an INSET panel (no zoom-in, never clipped)
+    Scaling LLM inference to 4096 nodes on Aurora supercomputer.
+
+    Shows:
+    - Hex lattice of ~300 nodes representing distributed system
+    - Broadcast phase: queries propagate ring-by-ring from center
+    - Inference phase: all nodes compute (pulsing red), speedometer shows tokens/s
+    - Reduction phase: results flow back to center
+
+    Side panels:
+    - Left: Node anatomy (Agent Logic → Inference Server → GPU)
+    - Right: Speedometer gauge (0-2M tokens/s)
+
+    Generated from prompt: "Hex-lattice broadcast and reduction. Node anatomy panel.
+    Speedometer showing tokens/s ramping up during inference."
+    Refined: "Color components to match phase. Reduce animation timing for pacing."
     """
 
     def __init__(self, **kwargs):

@@ -233,8 +233,16 @@ class OpalAgentsAnimation(Scene):
 
 class OpalAgentsAnimationV2(Scene):
     """
-    Version 2: Multiple rounds of agent communication with HPC system.
-    Shows repeated message passing and compute tasks dispatched to HPC.
+    Multi-agent collaboration for protein design over OPAL architecture.
+
+    Shows:
+    - Agent nodes positioned over OPAL architecture diagram
+    - Message passing between agents (literature, planning, simulation, etc.)
+    - HPC task dispatch when simulation/binder agents are activated
+    - Multiple iterations demonstrating ongoing collaboration
+
+    Generated from prompt: "Show agents communicating over OPAL architecture,
+    messages trigger HPC compute tasks, multiple rounds of collaboration."
     """
 
     def construct(self):

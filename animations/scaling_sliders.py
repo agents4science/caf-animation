@@ -5,11 +5,16 @@ import argparse
 
 class AgenticScalingSliders(Scene):
     """
-    Control panel with three sliders showing the scaling dimensions of
-    the Common Agentic Framework:
-    - Entity Count (agents, tools)
-    - Interaction Intensity (communication variety/volume)
-    - Persistence (state maintenance over time)
+    Three sliders demonstrating CAF scaling dimensions.
+
+    Visualizations:
+    - Entity Count: Grid of agent/tool icons accumulating as slider rises
+    - Interaction Intensity: Network nodes with growing connections, animated messages
+    - Persistence: Day counter (1 → 7 → 30 → 90 → 365) showing long-term operation
+
+    Generated from prompt: "Control panel with three sliders for entity count,
+    interaction intensity, and persistence. Each with visual demonstration."
+    Refined: "Replace persistence timeline with day counter showing 1→365 days."
     """
 
     def construct(self):

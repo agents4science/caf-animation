@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 """
-Manim animation showing distributed LLM query fan-out and tree reduction.
-Version 3: Results stream UPWARD through the reduction tree.
+Distributed LLM inference with tree reduction for binder design.
 
-Flow:
-- Dispatcher at top sends queries DOWN to leaf nodes at bottom
-- Results flow UP through combine levels
-- Final winner emerges at top
+Shows:
+- 8 leaf nodes receive protein-target design queries
+- Each node returns Kd binding affinity and modality
+- Results flow upward through pairwise comparison stages
+- Final winner (best binder) emerges at top
 
-Run with: manim -pql llm_tree_reduction_v3.py LLMTreeReductionV3
-For high quality: manim -pqh llm_tree_reduction_v3.py LLMTreeReductionV3
+Legend in upper-left explains leaf node contents:
+protein, target, Kd (result), modality (result)
+
+Generated from prompt: "Distributed LLM query fan-out and tree reduction.
+Results flow upward through combine levels until winner emerges."
+Refined: "Add legend explaining leaf contents. Keep legend visible throughout."
 """
 
 from manim import *
