@@ -44,10 +44,10 @@ Output: `caf_final_with_voiceover_4k.mp4`
 ├── generate_voiceover_elevenlabs.py  # Generate voiceover using ElevenLabs TTS
 ├── caf_voiceover_script_v3.txt  # Voiceover script
 ├── voiceover_caf_v3.mp3         # Generated voiceover audio
-├── llm_tree_reduction_v3.py     # Tree reduction animation (standalone)
 ├── animations/                   # Manim animation source files
 │   ├── architecture_overlay.py  # Final architecture slide animation
 │   ├── hex_broadcast.py         # Hex grid broadcast with speedometer
+│   ├── llm_tree_reduction_v3.py # Tree reduction with LLM inference
 │   ├── opal_agents_v3.py        # OPAL/FAMOUS protein design agents
 │   ├── patterns_annotated.py    # Seven CAF patterns with animations
 │   └── title_slide_robots.py    # Animated title with robots
@@ -70,7 +70,7 @@ Output: `caf_final_with_voiceover_4k.mp4`
 python animations/title_slide_robots.py 4k
 python animations/patterns_annotated.py 4k --loop
 python animations/opal_agents_v3.py 4k
-python llm_tree_reduction_v3.py 4k
+python animations/llm_tree_reduction_v3.py 4k
 python animations/hex_broadcast.py 4k
 python animations/architecture_overlay.py 4k
 
