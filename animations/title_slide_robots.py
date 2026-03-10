@@ -17,7 +17,7 @@ class TitleSlideRobots(Scene):
 
     def construct(self):
         # Load the title slide as background (cropped version: 990x558)
-        bg = ImageMobject("Title_Slide_norobots.png")
+        bg = ImageMobject("assets/Title_Slide_norobots.png")
         # Scale to fill frame height
         bg.scale_to_fit_height(config.frame_height)
         bg.move_to(ORIGIN)
