@@ -1,12 +1,19 @@
 # CAF Animation
 
-Generate a narrated video explaining the **Common Agentic Framework (CAF)**, a DOE initiative for scalable AI agent orchestration in scientific computing.
+Generate a narrated video explaining the **Common Agentic Framework (CAF)**, a DOE Genesis ModCon Base project for scalable AI agent orchestration in scientific computing.
 
-The video includes four animated segments:
-1. **OPAL Agents** - Multi-agent collaboration for protein design
-2. **Scaling Dimensions** - Entity count, interaction intensity, persistence
-3. **Tree Reduction** - Distributed LLM inference with result aggregation
-4. **Hex Broadcast** - Scaling to 4096 nodes on Aurora supercomputer
+## Video Segments
+
+The video includes eight segments:
+
+1. **Title Slide** - Animated robots with CAF branding
+2. **Patterns Annotated** - Seven agentic patterns with mini-animations
+3. **Academy Slide** - Static slide introducing Academy orchestration framework
+4. **OPAL Agents** - Multi-agent collaboration for protein design
+5. **Aegis Slide** - Static slide introducing Aegis inference software
+6. **Tree Reduction** - Distributed LLM inference with binder inset overlay
+7. **Hex Broadcast** - Scaling to 4000 nodes with speedometer visualization
+8. **Architecture Overlay** - Final slide showing CAF adoption across Genesis
 
 ## Quick Start
 
@@ -14,61 +21,62 @@ The video includes four animated segments:
 # Install dependencies
 pip install -r requirements.txt
 
-# Build video (low quality for quick preview)
-python build_video.py low
+# Generate voiceover (requires ElevenLabs API key)
+python generate_voiceover_elevenlabs.py
 
-# Build production quality
-python build_video.py high
+# Build final video at 4K
+python build_video_with_audio.py
 ```
 
-Output: `caf_video_final_<quality>.mp4`
+Output: `caf_final_with_voiceover_4k.mp4`
 
 ## Requirements
 
 - Python 3.9+
 - FFmpeg (must be installed separately)
-- Dependencies: `pip install -r requirements.txt`
-
-## Customization
-
-Edit `config.yaml` to change:
-
-**Voiceover scripts** - Modify the `script` field for any segment:
-```yaml
-segments:
-  - name: "intro"
-    script: |
-      Your custom narration text here...
-```
-
-**TTS voice** - Change the narrator voice:
-```yaml
-tts:
-  voice: "en-US-GuyNeural"  # See edge-tts for available voices
-  rate: "+0%"               # Speed adjustment
-```
-
-**Slide timing** - Adjust duration for static slides:
-```yaml
-  - name: "intro"
-    type: slide
-    duration: 9  # seconds
-```
+- Manim (Community Edition)
+- ElevenLabs API key (for voiceover generation)
 
 ## Project Structure
 
 ```
-├── build_video.py      # Main build script
-├── config.yaml         # Video configuration (scripts, settings)
-├── animations/         # Manim animation source files
-├── slides/             # Static slide images (PNG)
-├── assets/             # Animation assets
-└── PROMPTS.md          # Prompts used to generate the code
+├── build_video_with_audio.py    # Main build script - assembles segments with voiceover
+├── generate_voiceover_elevenlabs.py  # Generate voiceover using ElevenLabs TTS
+├── caf_voiceover_script_v3.txt  # Voiceover script
+├── voiceover_caf_v3.mp3         # Generated voiceover audio
+├── llm_tree_reduction_v3.py     # Tree reduction animation (standalone)
+├── animations/                   # Manim animation source files
+│   ├── architecture_overlay.py  # Final architecture slide animation
+│   ├── hex_broadcast.py         # Hex grid broadcast with speedometer
+│   ├── opal_agents_v3.py        # OPAL/FAMOUS protein design agents
+│   ├── patterns_annotated.py    # Seven CAF patterns with animations
+│   └── title_slide_robots.py    # Animated title with robots
+├── assets/                       # Images and video assets
+│   ├── Academy_Slide.png        # Academy static slide
+│   ├── Aegis_Slide.png          # Aegis static slide
+│   ├── binder_black.mp4         # Molecular docking video for inset
+│   ├── CAF_Patterns.png         # Patterns slide background
+│   ├── coffee_cup_white_transparent.png  # Coffee cup for OPAL
+│   ├── New_Final_Slide.png      # Architecture overlay background
+│   ├── robot_white_clean.png    # Robot image for title
+│   └── Title_Slide_norobots.png # Title slide background
+└── media/videos/                 # Rendered animation outputs
 ```
 
-## Development
+## Rendering Individual Animations
 
-See [PROMPTS.md](PROMPTS.md) for the prompts used to generate and refine each animation. Each animation file also includes docstrings describing the generative intent.
+```bash
+# Render at 4K quality
+python animations/title_slide_robots.py 4k
+python animations/patterns_annotated.py 4k --loop
+python animations/opal_agents_v3.py 4k
+python llm_tree_reduction_v3.py 4k
+python animations/hex_broadcast.py 4k
+python animations/architecture_overlay.py 4k
+
+# Preview at low quality
+python animations/patterns_annotated.py low --loop --preview
+```
 
 ## Build Options
 
@@ -79,20 +87,30 @@ See [PROMPTS.md](PROMPTS.md) for the prompts used to generate and refine each an
 | `high`  | 1920x1080  | 60  | Presentations |
 | `4k`    | 3840x2160  | 60  | High-quality export |
 
-```bash
-python build_video.py <quality> [options]
+## Segment Timing
 
-Options:
-  --skip-render    Use existing rendered animations
-  --skip-audio     Use existing generated audio
-  --config FILE    Use alternative config file
+The build script (`build_video_with_audio.py`) defines segment timing to sync with the voiceover:
+
+| Segment | Start | Duration | Source |
+|---------|-------|----------|--------|
+| Title | 0.0s | 10.6s | TitleSlideRobots animation |
+| Patterns | 11.6s | 22.4s | PatternsAnnotated animation |
+| Academy | 35.0s | 8.0s | Static image |
+| OPAL Agents | 43.0s | 13.7s | OpalAgentsV3 animation |
+| Aegis | 56.7s | 3.0s | Static image |
+| Tree Reduction | 59.7s | 32.3s | LLMTreeReductionV3 + binder inset |
+| Hex Broadcast | 89.0s | 18.2s | LLMHexBroadcastFixed4 animation |
+| Architecture | 108.2s | 24.6s | ArchitectureOverlay animation |
+
+## Voiceover
+
+The voiceover is generated using ElevenLabs TTS. Edit `caf_voiceover_script_v3.txt` to modify the narration, then regenerate:
+
+```bash
+python generate_voiceover_elevenlabs.py
 ```
 
-## Rendering Individual Animations
+## Output Files
 
-```bash
-python animations/opal_agents.py high --preview
-python animations/scaling_sliders.py high --preview
-python animations/tree_reduction.py high --preview
-python animations/hex_broadcast.py high --preview
-```
+- `caf_final_with_voiceover_4k.mp4` - Main output (4K with voiceover)
+- `caf_final_imperial_march.mp4` - Version with Imperial March background music

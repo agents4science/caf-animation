@@ -108,7 +108,7 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
         title_font = int(24 * font_scale)
         block_font = int(18 * font_scale)
 
-        title = Text("One Node", font_size=title_font, weight=BOLD)
+        title = Text("One Node", font="Arial", font_size=title_font, weight=BOLD)
         title.set_color(WHITE)
 
         # Stack blocks with larger dimensions
@@ -124,9 +124,9 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
             b.set_fill(WHITE, opacity=0.12)
             b.set_stroke(WHITE, width=2, opacity=0.5)
 
-        t1 = Text("Agent Logic", font_size=block_font).set_color(WHITE)
-        t2 = Text("Inference Server", font_size=block_font).set_color(WHITE)
-        t3 = Text("GPU", font_size=block_font).set_color(WHITE)
+        t1 = Text("Agent Logic", font="Arial", font_size=block_font).set_color(WHITE)
+        t2 = Text("Inference Server", font="Arial", font_size=block_font).set_color(WHITE)
+        t3 = Text("GPU", font="Arial", font_size=block_font).set_color(WHITE)
 
         # Layout within panel
         title.move_to(bg.get_top() + DOWN * (0.12 * panel_h))
@@ -210,7 +210,7 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
         label_font = int(14 * font_scale)
         value_font = int(32 * font_scale)  # Larger font for speed number
 
-        title = Text("Tokens/s", font_size=title_font, weight=BOLD)
+        title = Text("Tokens/s", font="Arial", font_size=title_font, weight=BOLD)
         title.set_color(WHITE)
 
         # Speedometer arc parameters
@@ -229,9 +229,9 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
         )
         arc.set_opacity(0.6)
 
-        # Create tick marks and labels (0, 0.5M, 1M, 1.5M, 2M)
-        tick_labels = ["0", "0.5M", "1M", "1.5M", "2M"]
-        tick_angles = [PI, 3*PI/4, PI/2, PI/4, 0]  # evenly spaced from left to right
+        # Create tick marks and labels (0, 1M, 2M, 3M)
+        tick_labels = ["0", "1M", "2M", "3M"]
+        tick_angles = [PI, 2*PI/3, PI/3, 0]  # evenly spaced from left to right for 0-3M scale
 
         ticks = VGroup()
         labels = VGroup()
@@ -246,7 +246,7 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
 
             # Label positioned outside the arc
             label_pos = arc_center + (gauge_radius + 0.12 * panel_w) * np.array([np.cos(angle), np.sin(angle), 0])
-            label = Text(label_text, font_size=label_font, color=WHITE)
+            label = Text(label_text, font="Arial", font_size=label_font, color=WHITE)
             label.move_to(label_pos)
             label.set_opacity(0.9)
             labels.add(label)
@@ -267,7 +267,7 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
 
         # Value display text (will be updated during animation)
         # Store the font size as an attribute so it persists during animation
-        value_text = Text("0", font_size=value_font, color=YELLOW)
+        value_text = Text("0", font="Arial", font_size=value_font, color=YELLOW)
         value_text.target_font_size = value_font  # Store for use in updater
         value_text.move_to(arc_center + DOWN * 0.15 * panel_h)
 
@@ -298,13 +298,13 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
 
         target_value: value in millions (e.g., 1.5 for 1.5M)
         """
-        # Angle mapping: 0 = PI (left), 2M = 0 (right)
-        # target_value of 1.5M = 1.5/2 = 0.75 of the way = angle PI/4
-        target_angle = PI - (target_value / 2.0) * PI
+        # Angle mapping: 0 = PI (left), 3M = 0 (right)
+        # target_value of 2.1M = 2.1/3 = 0.7 of the way
+        target_angle = PI - (target_value / 3.0) * PI
 
         # Create animation to move needle to target
         def needle_updater(mob, alpha):
-            current_angle = PI - alpha * (target_value / 2.0) * PI
+            current_angle = PI - alpha * (target_value / 3.0) * PI
             end_point = pivot + needle_length * np.array([np.cos(current_angle), np.sin(current_angle), 0])
             mob.put_start_and_end_on(pivot, end_point)
 
@@ -319,7 +319,7 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
                     new_text = f"{current_val:.1f}M"
                 else:
                     new_text = f"{current_val * 1000:.0f}K"
-                new_mob = Text(new_text, font_size=fixed_font_size, color=YELLOW)
+                new_mob = Text(new_text, font="Arial", font_size=fixed_font_size, color=YELLOW)
                 new_mob.move_to(fixed_center)  # Use fixed center position
                 mob.become(new_mob)
             return updater
@@ -338,7 +338,7 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
             # Oscillate slightly above and below
             offset = oscillation_range * (0.7 ** i) * (1 if i % 2 == 0 else -1)
             new_value = target_value + offset
-            new_angle = PI - (new_value / 2.0) * PI
+            new_angle = PI - (new_value / 3.0) * PI
 
             def make_osc_updater(start_angle, end_angle):
                 def updater(mob, alpha):
@@ -347,7 +347,7 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
                     mob.put_start_and_end_on(pivot, end_point)
                 return updater
 
-            current_angle = PI - (target_value / 2.0) * PI
+            current_angle = PI - (target_value / 3.0) * PI
             self.play(
                 UpdateFromAlphaFunc(needle, make_osc_updater(current_angle, new_angle)),
                 UpdateFromAlphaFunc(value_text, get_value_updater(target_value, new_value)),
@@ -392,8 +392,8 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
 
         # Add title at the top (position relative to camera frame, not default frame)
         # 5% from top, Arial font, 36pt base (scaled for camera zoom)
-        title = Text("Scaling LLM Inference to 4096 Nodes on Aurora", font="Arial", font_size=int(36 * font_scale), color=WHITE, weight=BOLD)
-        title.move_to(self.camera.frame.get_top() + DOWN * self.camera.frame.height * 0.05)
+        title = Text("Scaling LLM Inference to 4096 Nodes on Aurora", font="Arial", font_size=int(36 * font_scale), color=WHITE)
+        title.move_to(self.camera.frame.get_top() + DOWN * self.camera.frame.height * 0.07)  # Lowered slightly
         self.add(title)
 
         self.play(FadeIn(nodes_group), run_time=0.5)
@@ -421,7 +421,7 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
         # -----------------------------
         # BROADCAST: ring -> ring, each sender sends to TWO neighbors if possible
         # -----------------------------
-        phase = Text("Broadcast", font_size=label_font_size, color=YELLOW)
+        phase = Text("Broadcast", font="Arial", font_size=label_font_size, color=YELLOW)
         phase.next_to(nodes_group, UP, buff=0.5)
         self.play(FadeIn(phase), run_time=0.25)
 
@@ -517,7 +517,7 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
         # -----------------------------
         # COMPUTE with pulsing effect
         # -----------------------------
-        compute = Text("Inference", font_size=label_font_size, color=RED)
+        compute = Text("Inference", font="Arial", font_size=label_font_size, color=RED)
         compute.next_to(nodes_group, UP, buff=0.5)
         self.play(Transform(phase, compute), run_time=0.25)
 
@@ -532,8 +532,8 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
             run_time=0.3
         )
 
-        # Animate speedometer ramping up to ~1.5M tokens/s with oscillation
-        self.animate_speedometer(needle, needle_pivot, needle_length, value_text, target_value=1.5, run_time=1.0)
+        # Animate speedometer ramping up to ~2.1M tokens/s with oscillation
+        self.animate_speedometer(needle, needle_pivot, needle_length, value_text, target_value=2.1, run_time=1.0)
 
         # Pulsate each node 3 times, expanding to 2x diameter
         for _ in range(3):
@@ -554,7 +554,7 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
         # -----------------------------
         # REDUCTION: reverse ring -> ring inward, neighbor-only
         # -----------------------------
-        reduce = Text("Reduce", font_size=label_font_size, color=BLUE)
+        reduce = Text("Reduce", font="Arial", font_size=label_font_size, color=BLUE)
         reduce.next_to(nodes_group, UP, buff=0.5)
         self.play(Transform(phase, reduce), run_time=0.25)
 
@@ -625,7 +625,7 @@ class LLMHexBroadcastFixed4(MovingCameraScene):
         # -----------------------------
         # FINAL: root node larger and bright green, label at top
         # -----------------------------
-        result_label = Text("Final Result", font_size=label_font_size, color=GREEN)
+        result_label = Text("Final Result", font="Arial", font_size=label_font_size, color=GREEN)
         result_label.next_to(nodes_group, UP, buff=0.5)
 
         self.play(
