@@ -21,11 +21,19 @@ The video includes eight segments:
 # Install dependencies
 pip install -r requirements.txt
 
-# Generate voiceover (requires ElevenLabs API key)
-python generate_voiceover_elevenlabs.py
+# Render all animations at desired quality (low/medium/high/4k)
+python animations/title_slide_robots.py 4k
+python animations/patterns_annotated.py 4k --loop
+python animations/opal_agents_v3.py 4k
+python animations/llm_tree_reduction_v3.py 4k
+python animations/hex_broadcast.py 4k
+python animations/architecture_overlay.py 4k
 
-# Build final video at 4K
-python build_video_with_audio.py
+# Build tree reduction composite with binder inset
+python build_tree_composite.py 4k
+
+# Build final video
+python build_video_with_audio.py 4k
 ```
 
 Output: `caf_final_with_voiceover_4k.mp4`
@@ -41,6 +49,7 @@ Output: `caf_final_with_voiceover_4k.mp4`
 
 ```
 ├── build_video_with_audio.py    # Main build script - assembles segments with voiceover
+├── build_tree_composite.py      # Build tree reduction with binder inset overlay
 ├── generate_voiceover_elevenlabs.py  # Generate voiceover using ElevenLabs TTS
 ├── caf_voiceover_script_v3.txt  # Voiceover script
 ├── voiceover_caf_v3.mp3         # Generated voiceover audio
@@ -112,5 +121,7 @@ python generate_voiceover_elevenlabs.py
 
 ## Output Files
 
-- `caf_final_with_voiceover_4k.mp4` - Main output (4K with voiceover)
-- `caf_final_imperial_march.mp4` - Version with Imperial March background music
+- `caf_final_with_voiceover_low.mp4` - Low quality preview (854x480)
+- `caf_final_with_voiceover_medium.mp4` - Medium quality (1280x720)
+- `caf_final_with_voiceover_high.mp4` - High quality (1920x1080)
+- `caf_final_with_voiceover_4k.mp4` - 4K quality (3840x2160)
