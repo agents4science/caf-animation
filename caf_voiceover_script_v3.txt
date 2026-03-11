@@ -1,0 +1,33 @@
+The Common Agentic Framework, or Caf, is a Genesis ModCon Base project building high-performance agentic A I  capabilities for D O E science.
+
+<break time="1.0s"/>
+
+Analysis of agentic requirements has led Caf to identify an initial set of seven patterns to be supported on American Science Cloud resources—patterns that range from local agents to large-scale inference and tool use.
+
+<break time="1.0s"/>
+
+Caf is working to realize these patterns on American Science Cloud resources.
+
+<break time="1.0s"/>
+
+A first solution is Academy, an agentic orchestration framework for creating agent teams over distributed resources.
+
+<break time="1.0s"/>
+
+For example, the OPAL/FAMOUS protein design team uses Academy to coordinate agents that search literature, generate hypotheses, run simulations, and analyze results.
+
+<break time="1.0s"/>
+
+A second Caf solution is Aegis, software that enables scalable inference on supercomputers. We have applied Aegis to a biological design application that uses large language models to evaluate thousands of candidate molecules as protein binders. Each node uses its local language model to propose and evaluate candidate molecular structures.  The resulting candidates and associated scores are then passed upward through a hierarchy of reduction stages, where additional language models compare alternatives.
+
+<break time="1.0s"/>
+
+Using Aegis, we distribute design queries to four thousand model instances on Aurora, then combine results to find optimal answers. The system employs efficient broadcast and reduction to achieve over two million tokens per second: 100 times faster than six months ago.
+
+<break time="1.0s"/>
+
+Agentic patterns developed by Caf are being adopted broadly across Genesis.
+
+<break time="1.0s"/>
+
+An important next step will be to extend the Caf solution suite to support scalable tool execution so that agents can launch large computational campaigns across D O E facilities.

@@ -29,7 +29,7 @@ class ArchitectureOverlay(Scene):
 
     def construct(self):
         # Load background image (990x558 pixels after cropping, aspect 1.774)
-        bg_image = ImageMobject("New_Final_Slide.png")
+        bg_image = ImageMobject("assets/New_Final_Slide.png")
         # Scale to fill frame height (cropped image)
         bg_image.scale_to_fit_height(config.frame_height)
         bg_image.move_to(ORIGIN)

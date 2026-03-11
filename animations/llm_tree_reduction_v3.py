@@ -88,7 +88,7 @@ class LLMTreeReductionV3(Scene):
         # Show legend in upper left when leaf nodes appear
         legend = self.create_legend()
         legend.to_corner(UL, buff=0.15)
-        legend.shift(DOWN * 0.15)
+        legend.shift(DOWN * 0.5)
 
         # Animate nodes appearing
         self.play(
